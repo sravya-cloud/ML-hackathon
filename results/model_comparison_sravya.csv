@@ -1,0 +1,2 @@
+model,family,config,cv_macro_f1,cv_macro_f1_std,cv_log_loss,st_top1_acc,st_macro_f1,st_log_loss,route_continuity,candidate_miss_rate,infer_s,infer_ms_per_obs,subsample
+HistGradientBoosting,Boosting,"400 iters, lr=0.08, l2=1.0",0.8990860074974627,0.02803588769749494,0.14209155279639743,0.8168769030013049,0.8971461961896072,0.15382033886035387,0.7414302771956665,0.01671534207419375,1.2086949348449707,0.07510687471850934,0
