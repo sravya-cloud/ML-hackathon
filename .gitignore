@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# Secrets (never commit these)
+.env
+*.key
+*.pem
+credentials*.json
+
+# Raw dataset (large)
+data/
+Student folder/
+*.zip
+
+# Large generated datasets (rebuild with src/build_dataset.py)
+results/dataset_*.parquet
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

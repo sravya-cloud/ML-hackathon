@@ -1,0 +1,56 @@
+# PathSnap configuration
+# All physical units are metres unless noted. Coordinates are WGS84 (lon, lat).
+
+data:
+  # Root containing `train/` and `student_test/` trip folders.
+  # Override with the PATHSNAP_DATA env var or --data-root CLI flag.
+  root: "./data/Student folder"
+  train_dir: "train"
+  student_test_dir: "student_test"
+  # Evaluator-reserved trips are served by the API from a separate, server-only folder.
+  evaluator_test_dir: "evaluator_test"
+
+geo:
+  # Local projected CRS for the dataset (Heidelberg, Germany -> UTM 32N).
+  crs_metric: "EPSG:32632"
+  crs_geographic: "EPSG:4326"
+
+candidates:
+  # Search radius (m) around each GPS observation for candidate road arcs.
+  radius_m: 45.0
+  # Hard cap on candidates per observation (keep the nearest ones).
+  max_per_obs: 12
+
+features:
+  # Window (seconds) used to estimate instantaneous heading/speed.
+  heading_min_move_m: 2.0
+
+labeling:
+  # Max perpendicular distance (m) for an observation to be assigned to the
+  # reference route. Observations beyond this are treated as unlabeled (dropped).
+  max_route_dist_m: 60.0
+
+training:
+  random_seed: 42
+  cv_folds: 5
+  # Sub-sample fraction of training (obs,candidate) rows to keep experiments fast.
+  # Set to 1.0 to use everything.
+  train_sample_frac: 1.0
+
+bayes_opt:
+  n_calls: 40
+  random_seed: 42
+
+hmm:
+  # Emission: p(obs | arc) from classifier score, tempered.
+  emission_temperature: 1.0
+  # Transition: exp(-|network_gap - gps_gap| / beta). beta in metres.
+  transition_beta_m: 50.0
+  # Probability mass for a "broken"/disconnected transition fallback.
+  broken_transition_prob: 1.0e-6
+  # Max shortest-path hops to search when computing network distance between arcs.
+  max_path_search_m: 2000.0
+
+paths:
+  artifacts: "./artifacts"
+  results: "./results"
