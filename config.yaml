@@ -43,13 +43,19 @@ bayes_opt:
 
 hmm:
   # Emission: p(obs | arc) from classifier score, tempered.
-  emission_temperature: 1.0
+  emission_temperature: 0.5
   # Transition: exp(-|network_gap - gps_gap| / beta). beta in metres.
-  transition_beta_m: 50.0
+  transition_beta_m: 10.0
   # Probability mass for a "broken"/disconnected transition fallback.
   broken_transition_prob: 1.0e-6
-  # Max shortest-path hops to search when computing network distance between arcs.
+  # Max network distance (m) searched between consecutive candidate arcs.
   max_path_search_m: 2000.0
+  # Fastest plausible vehicle speed; longer implied routes count as broken.
+  max_speed_mps: 70.0
+  # Time gap (s) above which consecutive observations are treated as independent.
+  gap_reset_s: 30.0
+  # Extra search distance (m) added to 3x the straight-line GPS step.
+  search_slack_m: 150.0
 
 paths:
   artifacts: "./artifacts"
